@@ -9,24 +9,29 @@
 import UIKit
 import SceneKit
 
-class SceneViewController: UIViewController {
+class SceneViewController: UIViewController, SCNSceneRendererDelegate {
 
-    var SceneView:SCNView!
+    @IBOutlet weak var SceneView: SCNView!
+    //var SceneView:SCNView!
     var Scene:SCNScene!
     var SceneCamera:SCNNode!
+    var CreationTime:TimeInterval = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
         initScene()
         initCamera()
+//        createTarget()
         // Do any additional setup after loading the view.
     }
     
     func initView() {
-        SceneView = self.view as! SCNView
+        //SceneView = self.view as! SCNView
         SceneView.allowsCameraControl = true
         SceneView.autoenablesDefaultLighting = true
+        
+        SceneView.delegate = self // remove
     }
     
     func initScene() {
@@ -41,6 +46,63 @@ class SceneViewController: UIViewController {
         SceneCamera.camera = SCNCamera()
         
         SceneCamera.position = SCNVector3(x: 0, y:5, z: 10)
+        
+        Scene.rootNode.addChildNode(SceneCamera)
+    }
+    
+    func createTarget() {
+        let geometry:SCNGeometry = SCNPyramid(width: 1, height: 1, length: 1)
+        
+        let randomColour = arc4random_uniform(2) == 0 ? UIColor.green : UIColor.red
+        
+        geometry.materials.first?.diffuse.contents = randomColour
+        
+        
+        let geometryNode = SCNNode(geometry: geometry)
+        //remove
+        if randomColour == UIColor.green {
+            geometryNode.name = "friend"
+        }
+        geometryNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        Scene.rootNode.addChildNode(geometryNode)
+        
+        let randonPos: Float = arc4random_uniform(2) == 0 ? -1.0 : 1.0
+        
+        let position = SCNVector3(x: randonPos, y: 15, z: 0)
+        
+        geometryNode.physicsBody?.applyForce(position, at: SCNVector3(x: 0.05, y: 0.05, z: 0.05), asImpulse: true)
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        if time > CreationTime {
+            createTarget()
+            CreationTime = time + 0.6
+        }
+        cleanup()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        
+        let location = touch.location(in: SceneView)
+        
+        let hitTest = SceneView.hitTest(location, options: nil)
+        
+        if let hitObject = hitTest.first {
+            let node = hitObject.node
+            if node.name == "friend" {
+                self.SceneView.backgroundColor = UIColor.blue
+            }
+            //add node name to label here
+        }
+    }
+    
+    func cleanup() { //remove
+        for node in Scene.rootNode.childNodes {
+            if node.presentation.position.y < -2 {
+                node.removeFromParentNode()
+            }
+        }
     }
     
     override var shouldAutorotate: Bool {

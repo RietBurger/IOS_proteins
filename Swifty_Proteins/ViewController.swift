@@ -8,6 +8,8 @@
 
 import UIKit
 
+var selectedCell : String?
+
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     var searchInfo = [String]()
@@ -56,16 +58,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCell = infoList.infoArr[indexPath.row]
-        print(selectedCell)
-//        selected = true
-//        self.tabBarController?.selectedIndex = 1 - THIS IS USED TO GO TO NEXT CONTROLLER VIEW
+        let sceneView:SceneViewController = self.storyboard?.instantiateViewController(withIdentifier: "SceneView") as! SceneViewController
+
+        if tblView.cellForRow(at: indexPath) != nil{
+            if searching {
+                selectedCell = searchInfo[indexPath.row]
+                print(selectedCell as Any)
+                self.navigationController?.pushViewController(sceneView, animated: true)
+            } else {
+                selectedCell = infoList.infoArr[indexPath.row]
+                print(selectedCell as Any)
+                self.navigationController?.pushViewController(sceneView, animated: true)
+            }
+        }
     }
     ///////////
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
