@@ -8,6 +8,16 @@
 
 import UIKit
 import SceneKit
+import Alamofire
+
+struct Atom {
+    var index:Int
+    var x: Float
+    var y: Float
+    var z: Float
+    var name: String
+    var connection: [Int]
+}
 
 class SceneViewController: UIViewController, SCNSceneRendererDelegate {
 
@@ -16,14 +26,84 @@ class SceneViewController: UIViewController, SCNSceneRendererDelegate {
     var Scene:SCNScene!
     var SceneCamera:SCNNode!
     var CreationTime:TimeInterval = 0
+    var atoms:[Atom] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
         initScene()
         initCamera()
-//        createTarget()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        downloadData(Selected: selectedCell!)
+    }
+    
+    func downloadData(Selected: String) {
+        let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+            var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            documentsURL.appendPathComponent("\(Selected)_ideal.pdb")
+            return (documentsURL, [.removePreviousFile])
+        }
+        Alamofire.download("https://files.rcsb.org/ligands/view/\(Selected)_ideal.pdb", to: destination).responseData {
+            response in
+            if response.result.isSuccess {
+                if response.result.value == nil {
+                    print("NIL download")
+                    return
+                }
+                if let URL = response.destinationURL {
+                    do {
+                        let Ligand = try String(contentsOf: URL, encoding: .utf8)
+                        if Ligand.isEmpty {
+                            print("EMPTY")
+                            return
+                        }
+                        self.SortData(Data: Ligand)
+                    }
+                    catch {
+                        print("ERROR")
+                    }
+                }
+            }
+        }
+    }
+    
+    func SortData(Data: String) {
+        let lines = Data.components(separatedBy: .newlines)
+        for words in lines {
+            let word = words.split(separator: " ")
+            if word[0] == "ATOM" {
+                let index = Int(String(word[1]))
+                let x = Float(String(word[6]))
+                let y = Float(String(word[7]))
+                let z = Float(String(word[8]))
+                let name = String(word[11])
+                let temp = Atom(index: index!, x: x!, y: y!, z: z!, name: name, connection:[])
+                self.atoms.append(temp)
+            }else if word[0] == "CONECT" {
+                let index = Int(String(word[1]))
+                var i = 0
+                for connect in word {
+                    print("for loop ", connect)
+                    if i >= 2
+                    {
+                        let temp = Int(String(connect))
+                        if index! < temp!
+                        {
+                            self.atoms[index! - 1].connection.append(temp!)
+                        }
+                    }
+                    i += 1
+                }
+                
+            }else if word[0] == "END" {
+                break;
+            }
+        }
+        createTarget()
+        
     }
     
     func initView() {
@@ -45,41 +125,54 @@ class SceneViewController: UIViewController, SCNSceneRendererDelegate {
         SceneCamera = SCNNode()
         SceneCamera.camera = SCNCamera()
         
-        SceneCamera.position = SCNVector3(x: 0, y:5, z: 10)
+        SceneCamera.position = SCNVector3(x: 0, y:0, z: 30)
         
         Scene.rootNode.addChildNode(SceneCamera)
     }
     
     func createTarget() {
-        let geometry:SCNGeometry = SCNPyramid(width: 1, height: 1, length: 1)
+        DispatchQueue.main.async {
+        var rando:UIColor;
+            
+//            let v1 = SCNVector3(x: self.atoms[0].x, y: self.atoms[0].y, z: self.atoms[0].z)
+//            let v2 = SCNVector3(x: self.atoms[5].x, y: self.atoms[5].y, z: self.atoms[5].z)
+//            let connection:SCNNode = CylinderLine(parent: self.Scene.rootNode, v1: v1, v2: v2, radius: 0.1, radSegmentCount: 10, color: .gray)
+//            self.Scene.rootNode.addChildNode(connection)
         
-        let randomColour = arc4random_uniform(2) == 0 ? UIColor.green : UIColor.red
-        
-        geometry.materials.first?.diffuse.contents = randomColour
-        
-        
-        let geometryNode = SCNNode(geometry: geometry)
-        //remove
-        if randomColour == UIColor.green {
-            geometryNode.name = "friend"
+                for items in self.atoms {
+                    let geometry:SCNGeometry = SCNSphere(radius: 0.5)
+                    if items.name == "C" {
+                        rando = UIColor.lightGray
+                    }else {
+                        rando = UIColor.green
+                    }
+                    geometry.materials.first?.diffuse.contents = rando
+                    let geometryNode = SCNNode(geometry: geometry)
+                    geometry.name = items.name
+                    print(items.x, items.y, items.z)
+                    geometryNode.position = SCNVector3(x: items.x, y: items.y, z: items.z)
+                    self.Scene.rootNode.addChildNode(geometryNode)
+                
+                    if items.connection.count > 0 {
+                        for connection1 in items.connection {
+                            let v1 = SCNVector3(x: items.x, y: items.y, z: items.z)
+                            let temp = self.atoms[connection1 - 1] as Atom
+                            let v2 = SCNVector3(x: items.x, y: items.y, z: items.z)
+                            let connection:SCNNode = CylinderLine(parent: self.Scene.rootNode, v1: v1, v2: v2, radius: 0.1, radSegmentCount: 10, color: .red)
+                            self.Scene.rootNode.addChildNode(connection)
+                        }
+                    }
+            }
         }
-        geometryNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
-        Scene.rootNode.addChildNode(geometryNode)
-        
-        let randonPos: Float = arc4random_uniform(2) == 0 ? -1.0 : 1.0
-        
-        let position = SCNVector3(x: randonPos, y: 15, z: 0)
-        
-        geometryNode.physicsBody?.applyForce(position, at: SCNVector3(x: 0.05, y: 0.05, z: 0.05), asImpulse: true)
     }
     
-    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        if time > CreationTime {
-            createTarget()
-            CreationTime = time + 0.6
-        }
-        cleanup()
-    }
+//    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+//        if time > CreationTime {
+//            createTarget()
+//            CreationTime = time + 0.6
+//        }
+//        cleanup()
+//    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
