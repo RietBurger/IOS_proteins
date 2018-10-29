@@ -7,4 +7,5 @@ target 'Swifty_Proteins' do
 
   # Pods for Swifty_Proteins
 pod 'Alamofire', '~> 4.7'
+pod 'SwiftGifOrigin'
 end

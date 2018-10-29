@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4DD03CD256A1BF51983C449F6100B458"
-               BuildableName = "Pods_Swifty_Proteins.framework"
-               BlueprintName = "Pods-Swifty_Proteins"
+               BlueprintIdentifier = "0DB0B3663F833E36F8E52995F44D0341"
+               BuildableName = "SwiftGifOrigin.framework"
+               BlueprintName = "SwiftGifOrigin"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4DD03CD256A1BF51983C449F6100B458"
-            BuildableName = "Pods_Swifty_Proteins.framework"
-            BlueprintName = "Pods-Swifty_Proteins"
+            BlueprintIdentifier = "0DB0B3663F833E36F8E52995F44D0341"
+            BuildableName = "SwiftGifOrigin.framework"
+            BlueprintName = "SwiftGifOrigin"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
