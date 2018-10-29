@@ -9,6 +9,8 @@
 import UIKit
 import SceneKit
 import Alamofire
+import Photos
+import Social
 
 struct Atom {
     var index:Int
@@ -21,6 +23,7 @@ struct Atom {
 
 class SceneViewController: UIViewController, SCNSceneRendererDelegate {
 
+    @IBOutlet weak var ProtienName: UILabel!
     @IBOutlet weak var SceneView: SCNView!
     //var SceneView:SCNView!
     var Scene:SCNScene!
@@ -30,10 +33,34 @@ class SceneViewController: UIViewController, SCNSceneRendererDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ProtienName.text! = "Name: -"
         initView()
         initScene()
         initCamera()
+        let button1 = UIBarButtonItem(title: "Share", style: .done, target: self, action: #selector(tapbutton)) // action:#selector(Class.MethodName) for swift 3
+        self.navigationItem.rightBarButtonItem  = button1
         // Do any additional setup after loading the view.
+    }
+//    let image = self.SceneView.snapshot()
+    
+    @objc func tapbutton() {
+        let photos = PHPhotoLibrary.authorizationStatus()
+        if photos == .notDetermined {
+            PHPhotoLibrary.requestAuthorization({status in
+                if status == .authorized{
+                    Alert.showBasicAlert(on: self, with: "Sharing Enabled", message: "You may now share")
+                } else {
+                    Alert.showBasicAlert(on: self, with: "Auth Error", message: "You may not share as you have not authorised")
+                }
+            })
+        } else if photos == .authorized {
+            let postText: String = "HELL YEAH LOOK at those proteins 😂😋"
+            let image = self.SceneView.snapshot()
+            let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [postText, image], applicationActivities:nil)
+            DispatchQueue.main.async {
+            self.present(activityViewController, animated: true, completion: nil)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,20 +77,20 @@ class SceneViewController: UIViewController, SCNSceneRendererDelegate {
             response in
             if response.result.isSuccess {
                 if response.result.value == nil {
-                    print("NIL download")
+                    Alert.showBasicAlert(on: self, with: "Error", message: "Nothing downloaded try again")
                     return
                 }
                 if let URL = response.destinationURL {
                     do {
                         let Ligand = try String(contentsOf: URL, encoding: .utf8)
                         if Ligand.isEmpty {
-                            print("EMPTY")
+                            print("Ligand EMPTY")
                             return
                         }
                         self.SortData(Data: Ligand)
                     }
                     catch {
-                        print("ERROR")
+                        Alert.showBasicAlert(on: self, with: "Error", message: "Downloading Error")
                     }
                 }
             }
@@ -86,7 +113,6 @@ class SceneViewController: UIViewController, SCNSceneRendererDelegate {
                 let index = Int(String(word[1]))
                 var i = 0
                 for connect in word {
-                    print("for loop ", connect)
                     if i >= 2
                     {
                         let temp = Int(String(connect))
@@ -133,20 +159,14 @@ class SceneViewController: UIViewController, SCNSceneRendererDelegate {
     func createTarget() {
         DispatchQueue.main.async {
         var rando:UIColor;
-            
-//            let v1 = SCNVector3(x: self.atoms[0].x, y: self.atoms[0].y, z: self.atoms[0].z)
-//            let v2 = SCNVector3(x: self.atoms[5].x, y: self.atoms[5].y, z: self.atoms[5].z)
-//            let connection:SCNNode = CylinderLine(parent: self.Scene.rootNode, v1: v1, v2: v2, radius: 0.1, radSegmentCount: 10, color: .gray)
-//            self.Scene.rootNode.addChildNode(connection)
         
                 for items in self.atoms {
                     let geometry:SCNGeometry = SCNSphere(radius: 0.5)
                     rando = self.AtomColour(Name: items.name)
                     geometry.materials.first?.diffuse.contents = rando
                     let geometryNode = SCNNode(geometry: geometry)
-                    geometry.name = items.name
-                    print(items.x, items.y, items.z)
                     geometryNode.position = SCNVector3(x: items.x, y: items.y, z: items.z)
+                    geometryNode.name = items.name
                     self.Scene.rootNode.addChildNode(geometryNode)
                 
                     if items.connection.count > 0 {
@@ -159,7 +179,7 @@ class SceneViewController: UIViewController, SCNSceneRendererDelegate {
                         }
                     }
             }
-        }
+            CustomLoading.instance.HideGIf()        }
     }
     
     func AtomColour(Name: String) -> UIColor{
@@ -191,14 +211,6 @@ class SceneViewController: UIViewController, SCNSceneRendererDelegate {
         return UIColor.init(red: 1, green: (20 / 255), blue: (147 / 255), alpha: 1)
     }
     
-//    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-//        if time > CreationTime {
-//            createTarget()
-//            CreationTime = time + 0.6
-//        }
-//        cleanup()
-//    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         
@@ -208,20 +220,22 @@ class SceneViewController: UIViewController, SCNSceneRendererDelegate {
         
         if let hitObject = hitTest.first {
             let node = hitObject.node
-            if node.name == "friend" {
-                self.SceneView.backgroundColor = UIColor.blue
+            if node.name == nil {
+                ProtienName.text! = "Name: -"
+            } else {
+                ProtienName.text! = "Name: " + node.name!
             }
             //add node name to label here
         }
     }
     
-    func cleanup() { //remove
-        for node in Scene.rootNode.childNodes {
-            if node.presentation.position.y < -2 {
-                node.removeFromParentNode()
-            }
-        }
-    }
+//    func cleanup() { //remove
+//        for node in Scene.rootNode.childNodes {
+//            if node.presentation.position.y < -2 {
+//                node.removeFromParentNode()
+//            }
+//        }
+//    }
     
     override var shouldAutorotate: Bool {
         return true;

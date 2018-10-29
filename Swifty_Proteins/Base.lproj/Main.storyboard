@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -164,25 +165,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gtl-Q5-NNf">
-                                <rect key="frame" x="-0.5" y="10" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="10" width="375" height="667"/>
                             </sceneKitView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPw-aI-vAY">
+                                <rect key="frame" x="16" y="626" width="98" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Gtl-Q5-NNf" firstAttribute="width" secondItem="d3M-mU-4hV" secondAttribute="width" id="4Xg-WM-8j2"/>
                             <constraint firstItem="Gtl-Q5-NNf" firstAttribute="centerX" secondItem="QGN-Cd-Bhe" secondAttribute="centerX" id="4cm-J9-srF"/>
+                            <constraint firstItem="Gtl-Q5-NNf" firstAttribute="leading" secondItem="vPw-aI-vAY" secondAttribute="trailing" constant="-114" id="811-mm-7Nw"/>
                             <constraint firstItem="Gtl-Q5-NNf" firstAttribute="height" secondItem="d3M-mU-4hV" secondAttribute="height" id="LkG-Uw-wIF"/>
                             <constraint firstItem="Gtl-Q5-NNf" firstAttribute="centerY" secondItem="QGN-Cd-Bhe" secondAttribute="centerY" id="Zcz-c2-zcR"/>
+                            <constraint firstAttribute="bottom" secondItem="vPw-aI-vAY" secondAttribute="bottom" constant="20" symbolic="YES" id="eH9-LI-qIr"/>
+                            <constraint firstItem="vPw-aI-vAY" firstAttribute="leading" secondItem="d3M-mU-4hV" secondAttribute="leadingMargin" id="iau-mo-LRX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QGN-Cd-Bhe"/>
                     </view>
                     <connections>
+                        <outlet property="ProtienName" destination="vPw-aI-vAY" id="ZIh-kb-K5Z"/>
                         <outlet property="SceneView" destination="Gtl-Q5-NNf" id="sxR-Q1-MlN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EEc-Vu-SdQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1506" y="29"/>
+            <point key="canvasLocation" x="1504.8" y="28.335832083958024"/>
         </scene>
     </scenes>
     <resources>

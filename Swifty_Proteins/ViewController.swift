@@ -64,10 +64,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if searching {
                 selectedCell = searchInfo[indexPath.row]
                 print(selectedCell as Any)
+                CustomLoading.instance.showGif()
                 self.navigationController?.pushViewController(sceneView, animated: true)
             } else {
                 selectedCell = infoList.infoArr[indexPath.row]
                 print(selectedCell as Any)
+                CustomLoading.instance.showGif()
                 self.navigationController?.pushViewController(sceneView, animated: true)
             }
         }
