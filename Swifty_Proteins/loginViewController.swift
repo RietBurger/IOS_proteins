@@ -60,7 +60,7 @@ class loginViewController: UIViewController {
             })
         } else {
             //this means touch id not available
-            print(authError?.localizedDescription)
+            print(authError?.localizedDescription as Any)
             //show normal signup screen
         }
     }
