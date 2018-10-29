@@ -37,10 +37,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="INI-ek-neq" customClass="FingerPrintButton" customModule="Swifty_Proteins" customModuleProvider="target">
-                                <rect key="frame" x="151" y="342" width="92" height="41"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="INI-ek-neq" customClass="FingerPrintButton" customModule="Swifty_Proteins" customModuleProvider="target">
+                                <rect key="frame" x="148" y="309" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="fingerprint"/>
+                                <state key="normal" backgroundImage="FPw">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="fingerBtn:" destination="Rqz-zl-cYd" eventType="touchUpInside" id="mKF-xL-8cc"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -57,6 +62,9 @@
                         <viewLayoutGuide key="safeArea" id="mxq-Y0-Tid"/>
                     </view>
                     <navigationItem key="navigationItem" id="q5u-mV-8l7"/>
+                    <connections>
+                        <outlet property="fingerBtnView" destination="INI-ek-neq" id="H76-U8-avt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VTd-jr-Orl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -177,4 +185,7 @@
             <point key="canvasLocation" x="1506" y="29"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="FPw" width="80" height="80"/>
+    </resources>
 </document>
