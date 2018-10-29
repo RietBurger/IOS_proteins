@@ -141,11 +141,7 @@ class SceneViewController: UIViewController, SCNSceneRendererDelegate {
         
                 for items in self.atoms {
                     let geometry:SCNGeometry = SCNSphere(radius: 0.5)
-                    if items.name == "C" {
-                        rando = UIColor.lightGray
-                    }else {
-                        rando = UIColor.green
-                    }
+                    rando = self.AtomColour(Name: items.name)
                     geometry.materials.first?.diffuse.contents = rando
                     let geometryNode = SCNNode(geometry: geometry)
                     geometry.name = items.name
@@ -157,13 +153,42 @@ class SceneViewController: UIViewController, SCNSceneRendererDelegate {
                         for connection1 in items.connection {
                             let v1 = SCNVector3(x: items.x, y: items.y, z: items.z)
                             let temp = self.atoms[connection1 - 1] as Atom
-                            let v2 = SCNVector3(x: items.x, y: items.y, z: items.z)
+                            let v2 = SCNVector3(x: temp.x, y: temp.y, z: temp.z)
                             let connection:SCNNode = CylinderLine(parent: self.Scene.rootNode, v1: v1, v2: v2, radius: 0.1, radSegmentCount: 10, color: .red)
                             self.Scene.rootNode.addChildNode(connection)
                         }
                     }
             }
         }
+    }
+    
+    func AtomColour(Name: String) -> UIColor{
+        if Name == "C" {
+            return UIColor.lightGray
+        } else if Name == "O" {
+            return UIColor.red
+        } else if Name == "H" {
+            return UIColor.white
+        } else if Name == "N" {
+            return UIColor.init(red: (143 / 225), green: (143 / 255), blue: 1, alpha: 1)
+        } else if Name == "S" {
+            return UIColor.yellow
+        } else if Name == "P" {
+            return UIColor.orange
+        } else if Name == "C" {
+            return UIColor.green
+        } else if Name == "Br" || Name == "Zn" {
+            return UIColor.brown
+        } else if Name == "Na" {
+            return UIColor.blue
+        } else if Name == "Fe" {
+            return UIColor.orange
+        } else if Name == "Mg" {
+            return UIColor.init(red: (42 / 255), green: (128 / 255), blue: (42 / 255), alpha: 1)
+        } else if Name == "Ca" {
+            return UIColor.darkGray
+        }
+        return UIColor.init(red: 1, green: (20 / 255), blue: (147 / 255), alpha: 1)
     }
     
 //    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
