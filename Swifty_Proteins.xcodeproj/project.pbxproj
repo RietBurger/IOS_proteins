@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		91068C63FE0ED4C92A3F07C7 /* Pods_Swifty_Proteins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 895395C89CC1CEB7B4369414 /* Pods_Swifty_Proteins.framework */; };
 		A1B308952183454A00F75492 /* Cylinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B308942183454A00F75492 /* Cylinder.swift */; };
+		A1DDD68C2186E080000857E6 /* CustomLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DDD68B2186E080000857E6 /* CustomLoading.swift */; };
+		A1DDD68E2186ED9D000857E6 /* WeThinkCode-South-Africa.gif in Resources */ = {isa = PBXBuildFile; fileRef = A1DDD68D2186ED9D000857E6 /* WeThinkCode-South-Africa.gif */; };
+		A1DDD69021872A48000857E6 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DDD68F21872A48000857E6 /* Alert.swift */; };
 		A1F34ED82181A38700AF9369 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F34ED72181A38700AF9369 /* AppDelegate.swift */; };
 		A1F34EDA2181A38700AF9369 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F34ED92181A38700AF9369 /* ViewController.swift */; };
 		A1F34EDD2181A38700AF9369 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1F34EDB2181A38700AF9369 /* Main.storyboard */; };
@@ -27,6 +30,9 @@
 		7FAEFB74DC0D9BBAFB966033 /* Pods-Swifty_Proteins.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swifty_Proteins.release.xcconfig"; path = "Pods/Target Support Files/Pods-Swifty_Proteins/Pods-Swifty_Proteins.release.xcconfig"; sourceTree = "<group>"; };
 		895395C89CC1CEB7B4369414 /* Pods_Swifty_Proteins.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swifty_Proteins.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1B308942183454A00F75492 /* Cylinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cylinder.swift; sourceTree = "<group>"; };
+		A1DDD68B2186E080000857E6 /* CustomLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoading.swift; sourceTree = "<group>"; };
+		A1DDD68D2186ED9D000857E6 /* WeThinkCode-South-Africa.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "WeThinkCode-South-Africa.gif"; path = "../../WeThinkCode-South-Africa.gif"; sourceTree = "<group>"; };
+		A1DDD68F21872A48000857E6 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		A1F34ED42181A38700AF9369 /* Swifty_Proteins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swifty_Proteins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1F34ED72181A38700AF9369 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1F34ED92181A38700AF9369 /* ViewController.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -94,9 +100,12 @@
 				A1F34EE02181A38900AF9369 /* LaunchScreen.storyboard */,
 				A1F34EE32181A38900AF9369 /* Info.plist */,
 				A1F34EE92181C30800AF9369 /* SceneViewController.swift */,
+				A1DDD68D2186ED9D000857E6 /* WeThinkCode-South-Africa.gif */,
 				C525B3532181F628009A445B /* ligandsList.swift */,
 				C525B357218208F0009A445B /* connectCellToScene.swift */,
 				C5C6CAEF2183040F00910E8D /* buttonColors.swift */,
+				A1DDD68B2186E080000857E6 /* CustomLoading.swift */,
+				A1DDD68F21872A48000857E6 /* Alert.swift */,
 			);
 			path = Swifty_Proteins;
 			sourceTree = "<group>";
@@ -169,6 +178,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1DDD68E2186ED9D000857E6 /* WeThinkCode-South-Africa.gif in Resources */,
 				A1F34EE22181A38900AF9369 /* LaunchScreen.storyboard in Resources */,
 				A1F34EDF2181A38900AF9369 /* Assets.xcassets in Resources */,
 				A1F34EDD2181A38700AF9369 /* Main.storyboard in Resources */,
@@ -204,10 +214,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Swifty_Proteins/Pods-Swifty_Proteins-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftGifOrigin/SwiftGifOrigin.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftGifOrigin.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -224,10 +236,12 @@
 				A1F34EEA2181C30800AF9369 /* SceneViewController.swift in Sources */,
 				C5C6CAEE2182FF9800910E8D /* FingerPrintButton.swift in Sources */,
 				A1F34EDA2181A38700AF9369 /* ViewController.swift in Sources */,
+				A1DDD68C2186E080000857E6 /* CustomLoading.swift in Sources */,
 				C5C6CAF02183040F00910E8D /* buttonColors.swift in Sources */,
 				C5C6CAEC2182E54900910E8D /* loginViewController.swift in Sources */,
 				C525B3542181F628009A445B /* ligandsList.swift in Sources */,
 				C525B358218208F0009A445B /* connectCellToScene.swift in Sources */,
+				A1DDD69021872A48000857E6 /* Alert.swift in Sources */,
 				A1B308952183454A00F75492 /* Cylinder.swift in Sources */,
 				A1F34ED82181A38700AF9369 /* AppDelegate.swift in Sources */,
 			);
