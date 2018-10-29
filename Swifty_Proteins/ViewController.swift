@@ -50,7 +50,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        tblView.reloadData()
+        if background == true {
+            self.performSegue(withIdentifier: "loginView", sender: nil)
+        } else {
+            tblView.reloadData()
+        }
     }
     //////////// To make cell 'selectable'
     func numberOfSections(in tableView: UITableView) -> Int {

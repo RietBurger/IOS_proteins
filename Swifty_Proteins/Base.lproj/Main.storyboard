@@ -13,7 +13,7 @@
         <!--Login View Controller-->
         <scene sceneID="mra-wK-eCG">
             <objects>
-                <viewController id="Rqz-zl-cYd" customClass="loginViewController" customModule="Swifty_Proteins" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginView" id="Rqz-zl-cYd" customClass="loginViewController" customModule="Swifty_Proteins" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="80M-DO-kS2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -65,7 +65,6 @@
         <!--Navigation Controller-->
         <scene sceneID="kli-du-5AT">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iok-jY-r3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="ND1-KQ-vrH" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="n7o-d4-UMW">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -75,6 +74,7 @@
                         <segue destination="Rqz-zl-cYd" kind="relationship" relationship="rootViewController" id="2wN-QL-p7g"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iok-jY-r3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-196" y="30"/>
         </scene>

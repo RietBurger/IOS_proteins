@@ -8,8 +8,10 @@
 
 import UIKit
 
+var isOn : Bool = false
+
 class FingerPrintButton: UIButton {
-    var isOn = false
+//    var isOn = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)

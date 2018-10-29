@@ -9,6 +9,8 @@
 import UIKit
 import LocalAuthentication
 
+var background : Bool = false
+
 class loginViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -25,6 +27,7 @@ class loginViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         authenticateUsingTouchID()
+        
     }
     
     func authenticateUsingTouchID() {
@@ -43,7 +46,9 @@ class loginViewController: UIViewController {
                     //send to next UI
                     DispatchQueue.main.async {
 //                        self.tabBarController?.selectedIndex = 2 // not working yet...
+                        background = true
                          self.performSegue(withIdentifier: "listView", sender: nil)
+//                        self.performSelector(inBackground: <#T##Selector#>, with: <#T##Any?#>) - - try this?
                     }
                 } else {
                     if let error = error {
