@@ -21,7 +21,7 @@ class loginViewController: UIViewController {
     
     
     @IBAction func fingerBtn(_ sender: Any) {
-        print("button pushed in loginViewController")
+        //print("button pushed in loginViewController")
                     if active == true {
                         authenticateNow()
                     }
@@ -44,7 +44,7 @@ class loginViewController: UIViewController {
                 FingerBtnView.initButton()
             } else {
                 active = false
-                print(authError?.localizedDescription as Any)
+                //print(authError?.localizedDescription as Any)
             }
         }
         

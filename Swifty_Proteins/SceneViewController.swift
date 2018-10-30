@@ -10,7 +10,6 @@ import UIKit
 import SceneKit
 import Alamofire
 import Photos
-import Social
 
 struct Atom {
     var index:Int
@@ -56,7 +55,9 @@ class SceneViewController: UIViewController, SCNSceneRendererDelegate {
         } else if photos == .authorized {
             let postText: String = "HELL YEAH LOOK at those proteins 😂😋"
             let image = self.SceneView.snapshot()
-            let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [postText, image], applicationActivities:nil)
+            let activityViewController = UIActivityViewController(activityItems: [postText, image], applicationActivities:nil)
+            activityViewController.excludedActivityTypes = [UIActivityType.airDrop, UIActivityType.addToReadingList]
+            activityViewController.popoverPresentationController?.sourceView = self.SceneView
             DispatchQueue.main.async {
             self.present(activityViewController, animated: true, completion: nil)
             }
