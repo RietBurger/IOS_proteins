@@ -14,7 +14,7 @@
         <!--Login View Controller-->
         <scene sceneID="mra-wK-eCG">
             <objects>
-                <viewController id="Rqz-zl-cYd" customClass="loginViewController" customModule="Swifty_Proteins" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginView" id="Rqz-zl-cYd" customClass="loginViewController" customModule="Swifty_Proteins" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="80M-DO-kS2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -62,7 +62,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="q5u-mV-8l7"/>
                     <connections>
-                        <outlet property="FingerBtnView" destination="INI-ek-neq" id="kJs-mz-2UJ"/>
+                        <outlet property="fingerBtnView" destination="INI-ek-neq" id="H76-U8-avt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VTd-jr-Orl" userLabel="First Responder" sceneMemberID="firstResponder"/>

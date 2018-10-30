@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import LocalAuthentication
+
+var isOn : Bool = false
 
 class FingerPrintButton: UIButton {
     
@@ -19,12 +22,10 @@ class FingerPrintButton: UIButton {
     }
     
     func initButton() {
-        
         layer.borderWidth = 2.0
         layer.borderColor = Colors.twitBlue.cgColor
         layer.cornerRadius = frame.size.height/2
         layer.backgroundColor = Colors.twitBlue.cgColor
-        
         setTitleColor(.white, for: .normal)
     }
 }
