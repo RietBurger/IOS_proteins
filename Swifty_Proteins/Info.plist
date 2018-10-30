@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-<string>ACCESS to leak your NUDES</string>
+	<string>ACCESS to leak your NUDES</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>

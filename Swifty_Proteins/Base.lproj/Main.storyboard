@@ -39,13 +39,11 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="INI-ek-neq" customClass="FingerPrintButton" customModule="Swifty_Proteins" customModuleProvider="target">
-                                <rect key="frame" x="148" y="309" width="80" height="80"/>
+                                <rect key="frame" x="157" y="323" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="FPw">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
+                                <state key="normal" image="FPw"/>
                                 <connections>
-                                    <action selector="fingerBtn:" destination="Rqz-zl-cYd" eventType="touchUpInside" id="mKF-xL-8cc"/>
+                                    <action selector="fingerBtn:" destination="Rqz-zl-cYd" eventType="touchUpInside" id="4d9-Us-zzA"/>
                                 </connections>
                             </button>
                         </subviews>
